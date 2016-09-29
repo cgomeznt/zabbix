@@ -101,6 +101,37 @@ Creamos el usuario para zabbix.::
 	mysql> grant all on zabbix.* to zabbix@'localhost' identified by 'coloca_aqui_un_password';
 	mysql> flush privileges;
 
+Configuramos para que pueda escuchar desde la ip que se quiere.::
+
+	# vim /etc/mysql/my.cnf
+	Comentamos
+	#bind-address           = 127.0.0.1
+	#skip-networking
+
+Reiniciamos.::
+
+	# service mysql restart
+
+Otorgamos los permisos y probamos. USERNAME es el usuario que quermos que haga inicio y PASSWORD el password actual de ess usuario y mira la IP.::
+
+	# mysql -root -p
+
+	mysql> GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
+
+	mysql> GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'192.168.1.5' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
+
+Listamos los usuarios para ver sus permisos.::
+
+	mysql> SELECT * from information_schema.user_privileges where grantee like "'USERNAME'%";
+
+Y terminamos con.::
+
+	mysql> FLUSH PRIVILEGES;
+
+Hacemos un test.::
+
+	# mysql -h 192.168.1.5 -u root -p
+
 Ahora le creamos los objetos de esquemas requeridos.::
 
 	# cd /usr/share/doc/zabbix-server-mysql-2.4.7/create/
@@ -117,6 +148,7 @@ Editamos zabbix_server.conf para configurar la database IP, User y client.::
 		DBPassword=(tu_zabbix_password)
 	
 Modificar el php.ini.::
+
 	# vi /etc/php.ini
 		Cambiar estos parametros
 		max_execution_time 300
@@ -127,6 +159,7 @@ Modificar el php.ini.::
 		date.timezone America/Caracas
 
 Iniciar httpd y zabbix-server.::
+
 	# /etc/init.d/httpd start
 	# /etc/init.d/zabbix-server start
 
