@@ -211,5 +211,5 @@ Los archivos de configuracion mas importante son.::
 	/etc/zabbix/zabbix_server.conf 
 	/etc/zabbix/web/zabbix.conf.php
 
-El contiene toda la configuracion del zabbix server, como la base de datos donde escribira, el puerto de escuchar, etc y el zabbix.conf.php contiene la configuracion de la cual el php se alimentara para hacer las vistas.
+El zabbix_server.conf contiene toda la configuracion del zabbix server, como la base de datos donde escribira, el puerto de escuchar, etc y el zabbix.conf.php contiene la configuracion de la cual el php se alimentara para hacer las vistas.
 Es decir yo puedo configurar en zabbix.conf.php para que muestre una informacion desde una base de datos y en el zabbix_server.conf hago que escriba la informacion recolectada en otra base de datos (Ojo esto no esta bien es solo para ver la diferencia de ambos archivos)
