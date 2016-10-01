@@ -3,11 +3,11 @@ Configurar Zabbix external check
 
 Creamos un Item dentro del Host
 
-.. figure:: ../images/01.png
+.. figure:: ../images/externalcheck/01.png
 
-.. figure:: ../images/02.png
+.. figure:: ../images/externalcheck/02.png
 
-.. figure:: ../images/03.png
+.. figure:: ../images/externalcheck/03.png
 
 Cuando trabajamos con externalcheck los script deben ser copiados en esta ruta /usr/lib/zabbix/externalscripts/.::
 
@@ -42,17 +42,17 @@ Ya tenemos los datos del Host en el servidor de zabbix, ahora creamos el script 
 
 Por ultimo creamos un grafico dentro de zabbix server.
 
-.. figure:: ../images/04.png
+.. figure:: ../images/externalcheck/04.png
 
-.. figure:: ../images/05.png
+.. figure:: ../images/externalcheck/05.png
 
-.. figure:: ../images/06.png
+.. figure:: ../images/externalcheck/06.png
 
 Ahora ya podemos ver los valores en la grafica.
 
-.. figure:: ../images/07.png
+.. figure:: ../images/externalcheck/07.png
 
-.. figure:: ../images/08.png
+.. figure:: ../images/externalcheck/08.png
 
 
 

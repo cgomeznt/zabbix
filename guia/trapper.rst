@@ -3,13 +3,13 @@ Configurar Zabbix trapper
 
 Creamos un Item dentro del Host
 
-.. figure:: ../images/01.png
+.. figure:: ../images/trapper/trapper/01.png
 
-.. figure:: ../images/02.png
+.. figure:: ../images/trapper/trapper/02.png
 
-.. figure:: ../images/03.png
+.. figure:: ../images/trapper/03.png
 
-.. figure:: ../images/04.png
+.. figure:: ../images/trapper/04.png
 
 Si el host no tiene el zabbix_sender lo copiamos del zabbix server.::
 
@@ -36,10 +36,10 @@ Donde:
 
 Veamos como ver si el valor en el zabbix server
 
-.. figure:: ../images/05.png
+.. figure:: ../images/trapper/05.png
 
-.. figure:: ../images/06.png
+.. figure:: ../images/trapper/06.png
 
-.. figure:: ../images/07.png
+.. figure:: ../images/trapper/07.png
 
 
