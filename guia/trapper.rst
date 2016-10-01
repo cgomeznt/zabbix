@@ -3,9 +3,9 @@ Configurar Zabbix trapper
 
 Creamos un Item dentro del Host
 
-.. figure:: ../images/trapper/trapper/01.png
+.. figure:: ../images/trapper/01.png
 
-.. figure:: ../images/trapper/trapper/02.png
+.. figure:: ../images/trapper/02.png
 
 .. figure:: ../images/trapper/03.png
 
