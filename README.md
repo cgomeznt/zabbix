@@ -5,3 +5,5 @@
 * [Configurar Zabbix trapper](guia/trapper.rst) 
 * [Configurar Zabbix external check](guia/externalcheck.rst) 
 * [Configurar trigger](guia/trigger.rst)
+* [Configurar Yowsup 2 para Whatsapp](guia/yowsup.rst)
+* [Configurar Telegram con Zabbix](guia/telegram.rst)
