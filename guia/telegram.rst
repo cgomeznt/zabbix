@@ -166,7 +166,7 @@ Ir a Administration, Users y seleccionar el usuario. Entonces, ir a Media y clic
 
 .. figure:: ../images/telegram/12.png
 
-Listo ya ahora todos los triggers que se activen seran enviados al Grupo del Telegram.
+Listo ya ahora todos los triggers que se activen seran enviados al Grupo del Telegram. Recuerda que en Action pueden crear action mas especificos, es decir, para que solo envie los mensajes de ciertos triggers o de servidores o de grupos.
 
 
 
