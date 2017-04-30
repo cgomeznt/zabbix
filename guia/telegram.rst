@@ -144,7 +144,7 @@ Ir al tab Conditions y agregar las configuraciones que requieras.
 
 .. figure:: ../images/telegram/07.png
 
-Ir al tab Actions y agregar lass configuracions que se requieran.
+Ir al tab Actions y agregar las configuracions que se requieran.
 
 .. figure:: ../images/telegram/08.png
 
@@ -153,7 +153,7 @@ Ir al tab Actions y agregar lass configuracions que se requieran.
 Users
 +++++++
 
-El ultimo paso es crear un usuario de solo lectura para que pueda recivir las alertas de los triggers y que se envie al la media que se creo para Telegram.
+El ultimo paso es crear un usuario de solo lectura para que pueda recibir las alertas de los triggers y que se envie al la media que se creo para Telegram.
 
 .. figure:: ../images/telegram/10.png
 
