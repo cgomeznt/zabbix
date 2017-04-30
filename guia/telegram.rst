@@ -17,7 +17,7 @@ Con estos dos datos, el token de acceso y el id del grupo comenzaremos a configu
 .. figure:: ../images/telegram/01.png
 
 
-Debemos instalar python 3.4.5 sin que sustituya el que se encutra instalado (IMPORTANTE)aqui en el repositorio de Centos lo puedes buscar.
+Debemos instalar python 3.4.5 sin que sustituya el que se encuentra instalado (IMPORTANTE) aqui en el repositorio de Centos lo puedes buscar.
 
 Instalamos los requisitos.::
 
@@ -40,7 +40,7 @@ Procederemos a crear el siguiente script que enviara la informacion al grupo de 
 
 	# vi telegram
 
-	#!/usr/bin/env /usr/local/bin/python
+	#!/usr/bin/env /usr/local/bin/python3.4
 	# Si la linea de arriba no tiene correcta la direccion de python 3.4 no funciona.
 
 	import telebot,sys
