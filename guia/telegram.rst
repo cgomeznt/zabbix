@@ -89,16 +89,18 @@ En la interfaz de Zabbix ir, go to Adminstration, Media types, y click en Create
 
 .. figure:: ../images/telegram/03.png
 
-Name: telegram
-Type: Script
-Script name: telegram
+.::
 
-Si usamos Zabbix 3.0.1:
+	Name: telegram
+	Type: Script
+	Script name: telegram
 
-Script Parameters
-{ALERT.SENDTO}
-{ALERT.SUBJECT}
-{ALERT.MESSAGE}
+	Si usamos Zabbix 3.0.1:
+
+	Script Parameters
+	{ALERT.SENDTO}
+	{ALERT.SUBJECT}
+	{ALERT.MESSAGE}
 
 .. figure:: ../images/telegram/04.png
 
@@ -109,30 +111,32 @@ Ahora ir a Configuration, Actions y click en Create Action.
 
 .. figure:: ../images/telegram/05.png
 
-Name: Report problems to Zabbix administrators
-Default Subject: #{HOSTNAME}: {TRIGGER.NAME} {TRIGGER.STATUS}
-Default Message:
-Trigger: {TRIGGER.NAME}
-Trigger status: {TRIGGER.STATUS}
-Trigger severity: {TRIGGER.SEVERITY}
-Trigger URL: {TRIGGER.URL}
+.::
 
-Item values:
+	Name: Report problems to Zabbix administrators
+	Default Subject: #{HOSTNAME}: {TRIGGER.NAME} {TRIGGER.STATUS}
+	Default Message:
+	Trigger: {TRIGGER.NAME}
+	Trigger status: {TRIGGER.STATUS}
+	Trigger severity: {TRIGGER.SEVERITY}
+	Trigger URL: {TRIGGER.URL}
 
-1. {ITEM.NAME1} ({HOST.NAME1}:{ITEM.KEY1}): {ITEM.VALUE1}
-2. {ITEM.NAME2} ({HOST.NAME2}:{ITEM.KEY2}): {ITEM.VALUE2}
-3. {ITEM.NAME3} ({HOST.NAME3}:{ITEM.KEY3}): {ITEM.VALUE3}
+	Item values:
+
+	1. {ITEM.NAME1} ({HOST.NAME1}:{ITEM.KEY1}): {ITEM.VALUE1}
+	2. {ITEM.NAME2} ({HOST.NAME2}:{ITEM.KEY2}): {ITEM.VALUE2}
+	3. {ITEM.NAME3} ({HOST.NAME3}:{ITEM.KEY3}): {ITEM.VALUE3}
 
 Original event ID: {EVENT.ID}
 
 
-Los campos Subject y Message soportan configuracion HTML. HTML tags supported:
+Los campos Subject y Message soportan configuracion HTML. HTML tags supported.::
 
-<b>bold</b>, <strong>bold</strong>
-<i>italic</i>, <em>italic</em>
-<a href="URL">inline URL</a>
-<code>inline fixed-width code</code>
-<pre>pre-formatted fixed-width code block</pre>
+	<b>bold</b>, <strong>bold</strong>
+	<i>italic</i>, <em>italic</em>
+	<a href="URL">inline URL</a>
+	<code>inline fixed-width code</code>
+	<pre>pre-formatted fixed-width code block</pre>
 
 .. figure:: ../images/telegram/06.png
 
