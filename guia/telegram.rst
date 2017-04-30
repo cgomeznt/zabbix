@@ -15,12 +15,12 @@ Con estos dos datos, el token de acceso y el id del grupo comenzaremos a configu
 .. figure:: ../images/telegram/01.png
 
 
-Debemos instalar python 3.4.5 (IMPORTANTE)
+Debemos instalar python 3.4.5 sin que sustituya el que se encutra instalado (IMPORTANTE)aqui en el repositorio de Centos lo puedes buscar.
 
 Instalamos los requisitos.::
 
-	# pip3 install python-telegram-bot
-	# pip3 install pyTelegramBotAPI
+	# pip3.4 install python-telegram-bot
+	# pip3.4 install pyTelegramBotAPI
 
 Una vez instalado el API buscaremos la ruta donde estan instalados los script de alertas.::
 
