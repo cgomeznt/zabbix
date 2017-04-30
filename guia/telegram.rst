@@ -153,14 +153,14 @@ Ir al tab Actions y agregar las configuracions que se requieran.
 Users
 +++++++
 
-El ultimo paso es crear un usuario de solo lectura para que pueda recibir las alertas de los triggers y que se envie al la media que se creo para Telegram.
+El ultimo paso es crear un usuario de solo lectura para que pueda recibir las alertas de los triggers y que se envie a la media que se creo para Telegram.
 
 .. figure:: ../images/telegram/10.png
 
-Ir a Administration, Users y seleccionar el usuario. Entonces, ir a Media y click en Add.
+Ir a Administration, Users y seleccionar el usuario. Entonces, ir a Media y click en Add.::
 
-Type: telegram
-Send to: ID | Telegram ID es es el valor que ya capturamos al principio.
+	Type: telegram
+	Send to: ID | Telegram ID es es el valor que ya capturamos al principio.
 
 .. figure:: ../images/telegram/11.png
 
