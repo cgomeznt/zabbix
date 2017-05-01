@@ -220,7 +220,7 @@ Probar antes el script, si no funciona NO continuar.
 
 Abrir Zabbix browser en la opcion “Monitoring → Latest Data” y abrimos un grafico qeu tenga data.::
 
-.. figure:: ../images/telegramgraphic/01.png
+.. figure:: ../images/telegram/01.png
 
 
 .. figure:: ../images/telegramgraphic/02.png
