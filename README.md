@@ -7,4 +7,4 @@
 * [Configurar trigger](guia/trigger.rst)
 * [Configurar Yowsup 2 para Whatsapp](guia/yowsup.rst)
 * [Configurar Telegram con Zabbix](guia/telegram.rst)
-* [Configurar Telegram Graphic con Zabbix](guia/telegram.rst)
+* [Configurar Telegram Graphic con Zabbix](guia/telegramgraphic.rst)
