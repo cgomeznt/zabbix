@@ -122,6 +122,18 @@ Procederemos a crear el siguiente script que enviara la informacion al grupo de 
 	fi
 
 	############################################
+	# Envio Mensagem de Texto do Alerta
+	############################################
+
+	echo "$MESSAGE" > $ZABBIXMSG
+	${CURL} -k -s -c ${COOKIE} -b ${COOKIE} -s -X GET "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${USER}&text=\"${SUBJECT}\""  > /dev/null
+
+	if [ "$ENVIA_MESSAGE" -eq 1 ]
+	then
+		${CURL} -k -s -c ${COOKIE} -b ${COOKIE} --data-binary @${ZABBIXMSG} -X GET "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage"  > /dev/null
+	fi
+
+	############################################
 	# Envio dos graficos
 	############################################
 
