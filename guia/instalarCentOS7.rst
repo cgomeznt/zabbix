@@ -1,4 +1,4 @@
-Instalar ZABBIX 3.4 en CentOS 3.4
+Instalar ZABBIX 3.4 en CentOS 7
 ===================================
 
 La plataforma sera:
