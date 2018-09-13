@@ -9,3 +9,4 @@
 * [Configurar Telegram con Zabbix](guia/telegram.rst)
 * [Configurar Telegram Graphic con Zabbix](guia/telegramgraphic.rst)
 * [Configurar MySQL partitioning](guia/msqlpartitioning.rst)
+* [Instalar ZABBIX 3.4 en CentOS 3.4](guia/instalarCentOS7.rst) 
