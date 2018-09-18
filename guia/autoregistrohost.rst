@@ -32,7 +32,7 @@ Se debe realizar la instalación del zabbix agente en los Host.::
 
 	yum install -y zabbix-agent.x86_64
 
-Y el archivo de configuración como minimo debe tener::
+Y el archivo de configuración "/etc/zabbix/zabbix_agentd.conf" debe tener como minimo::
 
 	PidFile=/var/run/zabbix/zabbix_agentd.pid
 	LogFile=/var/log/zabbix/zabbix_agentd.log
