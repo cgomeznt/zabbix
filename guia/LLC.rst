@@ -208,3 +208,15 @@ Asociar el template al host
 Ahora asociamos el template al HOST y debemos esperar a que se realice el Discover y comience a verificar el status.
 
 
+.. figure:: ../images/llc/11.png
+
+
+
+.. figure:: ../images/llc/12.png
+
+
+
+.. figure:: ../images/llc/13.png
+
+
+
