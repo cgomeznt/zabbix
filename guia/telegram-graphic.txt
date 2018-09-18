@@ -1,3 +1,26 @@
+#!/bin/bash
+
+##########################################################################
+# Zabbix-Telegram envio de alerta por Telegram com graficos dos eventos
+# Filename: zabbix-telegram.sh
+# Revision: 2.2
+# Date: 07/02/2017
+# Author: Diego Maia - diegosmaia@yahoo.com.br Telegram - @diegosmaia
+# Aproveitei algumas coisas:
+# Script getItemGraph.sh Author: Qicheng
+# https://github.com/GabrielRF/Zabbix-Telegram-Notification @GabrielRF
+# Obs.: Caso esqueci de alguem, por favor, me chame no Telegram que adiciono
+# Modificado por: Carlos Gomez Gomez
+##########################################################################
+
+MAIN_DIRECTORY="/usr/lib/zabbix/alertscripts/"
+
+USER=$1
+SUBJECT=$2
+SUBJECT="${SUBJECT//,/ }"
+MESSAGE="chat_id=${USER}&text=$3"
+GRAPHID=$3
+GRAPHID=$(echo $GRAPHID | awk -F"[" '{print $2}' | tr -d "]")
 # GRAPHID=$(echo $GRAPHID | grep -o -E "(Item Graphic: \[[0-9]{7}\])|(Item Graphic: \[[0-9]{6}\])|(Item Graphic: \[[0-9]{5}\])|(Item Graphic: \[[0-9]{4}\])|(Item Graphic: \[[0-9]{3}\])")
 # GRAPHID=$(echo $GRAPHID | grep -o -E "([0-9]{7})|([0-9]{6})|([0-9]{5})|([0-9]{4})|([0-9]{3})")
 ITEMID=$GRAPHID
@@ -23,7 +46,7 @@ PASSWORD="telegram"
 # O Bot-Token do exemplo, tem que modificar
 ############################################
 
-BOT_TOKEN='546115327:AAGbcHH4AfEpstsKfq2D6e65TykZvJd00To'
+BOT_TOKEN='546135377:AAGbcHH4AfEpstsKfqD6e65ykZvd00To'
 
 #############################################
 # Se nao desejar enviar GRAFICO / ENVIA_GRAFICO = 0
@@ -123,7 +146,7 @@ rm -f ${COOKIE}
 rm -f ${PNG_PATH}
 
 # Desabilita se precisar verificar o arquivo /tmp/zabbix-message-{datetime}.tmp, ele contem os dados enviados pelo Zabbix
-rm -f ${ZABBIXMSG}
+# rm -f ${ZABBIXMSG}
 exit 0
 Modificar el valor de variable ZBX_URL para o ip del servidor Zabbix.:
 

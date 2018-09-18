@@ -20,7 +20,7 @@ ZABBIXMSG="/tmp/zabbix-message-email-$(date "+%Y.%m.%d-%H.%M.%S").tmp"
 #############################################
 # URL del Zabbix
 #############################################
-ZBX_URL="http://192.168.1.210/zabbix"
+ZBX_URL="http://192.168.0.21/zabbix"
 
 ##############################################
 # Cuenta valida en el site de zabbix
@@ -36,10 +36,10 @@ PASSWORD="telegram"
 ##############################################
 
 # servidor de salida
-FROM_EMAIL_ADDRESS="rapid.pagos@gmail.com"
-FRIENDLY_NAME="Rapid Pago"
-EMAIL_ACCOUNT_PASSWORD="America21"
-SERVER_SMTP="smtp://smtp.gmail.com:587"
+FROM_EMAIL_ADDRESS="cgomez@debian.com"
+FRIENDLY_NAME="Zabbix-SCM"
+EMAIL_ACCOUNT_PASSWORD="tutu."
+SERVER_SMTP="smtp://kinesis.swishmail.com:587"
 
 #############################################
 # destinatario(s) del mensaje
@@ -62,7 +62,7 @@ esac
 
 ##############################################
 # Graficos
-###############################################
+##############################################
 
 WIDTH=800
 CURL="/usr/bin/curl"
