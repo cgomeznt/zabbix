@@ -1,0 +1,138 @@
+#!/bin/bash
+
+#########################################################################
+# Por: Carlos Gomez Gomez
+# https://github.com/cgomeznt/
+##########################################################################
+
+MAIN_DIRECTORY="/usr/lib/zabbix/alertscripts/"
+
+USER=$1
+SUBJECT=$2
+SUBJECT="${SUBJECT//,/ }"
+MESSAGE="chat_id=${USER}&text=$3"
+GRAPHID=$3
+GRAPHID=$(echo $GRAPHID | awk -F"[" '{print $2}' | tr -d "]")
+ITEMID=$GRAPHID
+ZABBIXMSG="/tmp/zabbix-message-$(date "+%Y.%m.%d-%H.%M.%S").tmp"
+ 
+
+#############################################
+# URL del Zabbix
+#############################################
+ZBX_URL="http://192.168.1.210/zabbix"
+
+##############################################
+# Cuenta valida en el site de zabbix
+##############################################
+
+USERNAME="telegram"
+PASSWORD="telegram"
+
+##############################################
+# Configuraciones para enviar correo utilizando Google como relay
+# Deben habilitar en este link que dicha cuenta Permitir el acceso de aplicaciones menos seguras
+# https://myaccount.google.com/lesssecureapps
+##############################################
+
+# servidor de salida
+FROM_EMAIL_ADDRESS="rapid.pagos@gmail.com"
+FRIENDLY_NAME="Rapid Pago"
+EMAIL_ACCOUNT_PASSWORD="America21"
+SERVER_SMTP="smtp://smtp.gmail.com:587"
+
+#############################################
+# destinatario(s) del mensaje
+#############################################
+TO_EMAIL_ADDRESS="$USER"
+
+
+#############################################
+# Si no quiere enviar GRAFICO / ENVIA_GRAFICO = 0
+# Si no quiere enviar MESSAGE / ENVIA_MESSAGE = 0
+#############################################
+
+ENVIA_GRAFICO=1
+ENVIA_MESSAGE=1
+
+case $GRAPHID in
+        ''|*[!0-9]*) ENVIA_GRAFICO=0 ;;
+esac
+
+
+##############################################
+# Graficos
+##############################################
+
+WIDTH=800
+CURL="/usr/bin/curl"
+COOKIE="/tmp/telegram_cookie-$(date "+%Y.%m.%d-%H.%M.%S")"
+PNG_PATH="/tmp/telegram_graph-$(date "+%Y.%m.%d-%H.%M.%S").png"
+
+############################################
+# Periodo de grafico en minutos Exp: 10800min/3600min=3h
+############################################
+
+PERIOD=10800
+
+
+###########################################
+# Verifica si pasaron los 3 parametros
+# para el script
+###########################################
+
+if [ "$#" -lt 3 ]
+then
+        exit 1
+fi
+
+
+############################################
+# Descarga de graficos
+############################################
+
+# Se ENVIA_GRAFICO=1 el envia gráfico.
+if [ $(($ENVIA_GRAFICO)) -eq '1' ]; then
+        ############################################
+        # Zabbix iniciando sesion con el usuario en el site
+        ############################################
+
+        # Zabbix - Ingles - Verifique su Zabbix el idioma del login "Sign in".
+        # Obs.: Caso queira mudar, abra a configuração do usuário Guest e mude a linguagem para Portugues, se fizer isso comente (#) a linha abaixo e descomente a linha Zabbix-Portugues.
+
+                ${CURL} -k -s -c ${COOKIE} -b ${COOKIE} -d "name=${USERNAME}&password=${PASSWORD}&autologin=1&enter=Sign%20in" ${ZBX_URL}"/index.php" # > /dev/null
+
+        # Download gráfico envio
+               ${CURL} -k -s -c ${COOKIE}  -b ${COOKIE} -d "itemids=${GRAPHID}&itemid=${ITEMID}&period=${PERIOD}&width=${WIDTH}" ${ZBX_URL}"/chart.php" -o "${PNG_PATH}";
+
+fi
+
+############################################
+# Envio Mensage 
+############################################
+
+echo "$MESSAGE" > $ZABBIXMSG
+cat "$ZABBIXMSG" | grep -v "chat_id" | strings | mailx -v -s "$SUBJECT" \
+-a ${PNG_PATH} \
+-S smtp-use-starttls \
+-S ssl-verify=ignore \
+-S smtp-auth=login \
+-S smtp=$SERVER_SMTP \
+-S from="$FROM_EMAIL_ADDRESS($FRIENDLY_NAME)" \
+-S smtp-auth-user=$FROM_EMAIL_ADDRESS \
+-S smtp-auth-password=$EMAIL_ACCOUNT_PASSWORD \
+-S nss-config-dir="/etc/pki/nssdb/" \
+$TO_EMAIL_ADDRESS
+
+
+############################################
+# Apagando  archivos utilizados  script
+############################################
+
+rm -f ${COOKIE}
+
+rm -f ${PNG_PATH}
+
+rm -f ${ZABBIXMSG}
+exit 0
+
