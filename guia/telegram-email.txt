@@ -66,8 +66,8 @@ esac
 
 WIDTH=800
 CURL="/usr/bin/curl"
-COOKIE="/tmp/telegram_cookie-$(date "+%Y.%m.%d-%H.%M.%S")"
-PNG_PATH="/tmp/telegram_graph-$(date "+%Y.%m.%d-%H.%M.%S").png"
+COOKIE="/tmp/telegram_cookie-email-$(date "+%Y.%m.%d-%H.%M.%S")"
+PNG_PATH="/tmp/telegram_graph-email-$(date "+%Y.%m.%d-%H.%M.%S").png"
 
 ############################################
 # Periodo de grafico en minutos Exp: 10800min/3600min=3h
