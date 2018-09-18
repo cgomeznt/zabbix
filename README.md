@@ -11,3 +11,4 @@
 * [Configurar MySQL partitioning](guia/msqlpartitioning.rst)
 * [Instalar ZABBIX 3.4 en CentOS 7](guia/instalarCentOS7.rst) 
 * [Configurar ZABBIX 3.4 para el Auto registro de HOSTs](guia/autoregistrohost.rst) 
+* [Low Level Discovery (LLD)](guia/LLC.rst) 
