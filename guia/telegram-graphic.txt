@@ -1,7 +1,7 @@
 # GRAPHID=$(echo $GRAPHID | grep -o -E "(Item Graphic: \[[0-9]{7}\])|(Item Graphic: \[[0-9]{6}\])|(Item Graphic: \[[0-9]{5}\])|(Item Graphic: \[[0-9]{4}\])|(Item Graphic: \[[0-9]{3}\])")
 # GRAPHID=$(echo $GRAPHID | grep -o -E "([0-9]{7})|([0-9]{6})|([0-9]{5})|([0-9]{4})|([0-9]{3})")
 ITEMID=$GRAPHID
-ZABBIXMSG="/tmp/zabbix-message-$(date "+%Y.%m.%d-%H.%M.%S").tmp"
+ZABBIXMSG="/tmp/zabbix-message-telegram-$(date "+%Y.%m.%d-%H.%M.%S").tmp"
 
 echo "Probando echo"
 echo $GRAPHID

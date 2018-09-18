@@ -14,7 +14,7 @@ MESSAGE="chat_id=${USER}&text=$3"
 GRAPHID=$3
 GRAPHID=$(echo $GRAPHID | awk -F"[" '{print $2}' | tr -d "]")
 ITEMID=$GRAPHID
-ZABBIXMSG="/tmp/zabbix-message-$(date "+%Y.%m.%d-%H.%M.%S").tmp"
+ZABBIXMSG="/tmp/zabbix-message-email-$(date "+%Y.%m.%d-%H.%M.%S").tmp"
  
 
 #############################################
