@@ -112,7 +112,7 @@ fi
 ############################################
 
 echo "$MESSAGE" > $ZABBIXMSG
-cat "$ZABBIXMSG" | grep -v "chat_id" | strings | mailx -v -s "$SUBJECT" \
+cat "$ZABBIXMSG" | sed "s/chat_id=${USER}&text=//g" | strings | mailx -v -s "$SUBJECT" \
 -a ${PNG_PATH} \
 -S smtp-use-starttls \
 -S ssl-verify=ignore \
