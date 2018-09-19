@@ -98,14 +98,13 @@ Para cambiar el logo de ingreso modificaremos el background  url::
 
 Por::
 
-Para cambiar el logo de ingreso modificaremos el background  url:
-
 	.signin-logo {
 	  margin: 0 auto;
 	  margin-bottom: 21px;
 	  width: 114px;
 	  height: 30px;
-	  background: url(../img/avengers.png) no-repeat 0 -0px; }
+	  background: url(../img/avenger) no-repeat 0 -0px; }
+
 
 
 Y para cambiar el logo de la barra de menú modificaremos el background url::
