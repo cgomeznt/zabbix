@@ -151,9 +151,6 @@ Crear el Template
 ++++++++++++++++++
 
 
-.. figure:: ../images/llc/01.png
-
-
 Crear un nuevo **template** y configurar un  **Discovery rule**::
 
 	Type: Zabbix Agent
@@ -161,19 +158,37 @@ Crear un nuevo **template** y configurar un  **Discovery rule**::
 	Keep lost resources period (in days): 0
 	If you wish to retain data in Zabbix from deleted files, set this value higher than 0
 
+Creamos el template.
+
+
 .. figure:: ../images/llc/01.png
+
+
+Llenamos los campos "Template name", "Visible name", asignamos el grupo de "Template" y pulsamos el botón "Add"
 
 
 .. figure:: ../images/llc/02.png
 
 
+Se agrega el Template creado por nosotros.
+
+
 .. figure:: ../images/llc/03.png
+
+
+Luego de seleccionar el Template creado, pulsamos sobre el link "Discovery rules" y en esa ventana pulsamos sobre el botón "Create discovery rule"
 
 
 .. figure:: ../images/llc/04.png
 
 
+Creamos la Regla que hace el descubrimiento de los ITEMS y pulsamo sobre el botón "Add"
+
+
 .. figure:: ../images/llc/05.png
+
+
+Se agrega el Discorey rule Creado por nosotros
 
 
 .. figure:: ../images/llc/06.png
@@ -187,15 +202,26 @@ Crear un **item prototype**::
 	Type of information: Numeric (unsigned)
 	Data type: Decimal
 
+En el mismo Template creado por nosotros, pulsamos sobre el link "Item prototypes" y pulsamos sobre el botón "Create item prototype"
 
 
 .. figure:: ../images/llc/07.png
 
 
+Llenamos los campos "Name", "Visible name", "Type", "Key" y pulsamos el botón "Add"
+
+
 .. figure:: ../images/llc/08.png
 
 
+Se agrega el "Item prototype" Creado por nosotros
+
+
 .. figure:: ../images/llc/09.png
+
+
+Retornamos en donde estan los Templates y podemos observar ahora como nuestro Template tiene un Discovery Rule
+
 
 
 .. figure:: ../images/llc/10.png
@@ -207,16 +233,29 @@ Asociar el template al host
 
 Ahora asociamos el template al HOST y debemos esperar a que se realice el Discover y comience a verificar el status.
 
+Nos vamos a cada uno de los HOST que necesitamos tenga el Template creado por nosotros.
+
+
 
 .. figure:: ../images/llc/11.png
 
+
+En "Configuration" "HOSTS" observamos como el servidor que tiene 3 Discovery rules solo tiene 75 Items
 
 
 .. figure:: ../images/llc/12.png
 
 
+Luego de esperar un rato podemos observar como el mismo servidor que tenia 3 Discovery rules ahora tiene 95 Items
+
 
 .. figure:: ../images/llc/13.png
+
+
+Y podemos ahora ver en los Items del servidor como fueron agregados los Item discoverd.
+
+
+.. figure:: ../images/llc/14.png
 
 
 
