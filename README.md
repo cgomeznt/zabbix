@@ -13,3 +13,5 @@
 * [Configurar ZABBIX 3.4 para el Auto registro de HOSTs](guia/autoregistrohost.rst) 
 * [Low Level Discovery (LLD)](guia/LLC.rst) 
 * [Personalizar Logo de Zabbix 3.x ](guia/personalizarlog.rst) 
+* [Active Directory Authentication via LDAP Zabbix 3.x ](guia/adldap.rst) 
+
