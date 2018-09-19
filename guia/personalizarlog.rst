@@ -78,7 +78,9 @@ Las imágenes se almacenan en:
 Y los temas se almacenan en:
 /usr/share/zabbix/styles
 
-Respaldamos en "/usr/share/zabbix/" el "favicon.ico" y copiamos el log en "/usr/share/zabbix/" con el nombre de "favicon.ico", con eso ya cambiamos el icono de la pestaña del navegador.
+Respaldamos en "/usr/share/zabbix/" el "favicon.ico" y copiamos el log en "/usr/share/zabbix/" con el nombre de "favicon.ico", con eso ya cambiamos el icono de la pestaña del navegador.::
+
+	/usr/share/zabbix/favicon.ico
 
 
 Copiamos el logo en "/usr/share/zabbix/img"
@@ -106,23 +108,23 @@ Para cambiar el logo de ingreso modificaremos el background  url:
 	  background: url(../img/avengers.png) no-repeat 0 -0px; }
 
 
-Y para cambiar el logo de la barra de menú modificaremos el background url:
+Y para cambiar el logo de la barra de menú modificaremos el background url::
 
-.logo {
-  float: left;
-  display: block;
-  width: 95px;
-  height: 25px;
-  background: url(../img/icon-sprite.svg) no-repeat 0 -903px; }
+	.logo {
+	  float: left;
+	  display: block;
+	  width: 95px;
+	  height: 25px;
+	  background: url(../img/icon-sprite.svg) no-repeat 0 -903px; }
 
-Por:
+Por::
 
-.logo {
-  float: left;
-  display: block;
-  width: 95px;
-  height: 25px;
-  background: url(../img/avengers.png) no-repeat 0 -0px; }
+	.logo {
+	  float: left;
+	  display: block;
+	  width: 95px;
+	  height: 25px;
+	  background: url(../img/avengers.png) no-repeat 0 -0px; }
 
 
 
