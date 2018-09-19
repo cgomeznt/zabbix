@@ -2,13 +2,15 @@ Low Level Discovery (LLD)
 ==========================
 
 
+Low-level discovery. El descubrimiento de bajo nivel proporciona una forma de crear automáticamente elementos, disparadores y gráficos para diferentes entidades en una computadora
+
 Que es lo que se quiere descubrir
 ++++++++++++++++++++++++++++++++++
 
-Lo primero que se debe tener claro es qeu es lo que se quiere descubir y luego esa salida la tenemos que llevar a un formato JSON
-Ejemplo Queremos saber los puertos que se estan iniciando con una aplicación.
+Lo primero que se debe tener claro es, ¿que es lo que se quiere descubrir? y luego esa salida la tenemos que llevar a un formato JSON
+Ejemplo Queremos saber los puertos que se están iniciando con una aplicación.
 
-En el archivo "port_list.txt" tenemos ya almacenado un listado de los puertos que requerimos verificar, es decir, estar seguros que estan iniciados.::
+En el archivo "port_list.txt" tenemos ya almacenado un listado de los puertos que requerimos verificar, es decir, estar seguros que están iniciados (Previo hubo un script que genero este archivo).::
 
 	# cat /home/oracle/scm/port_list.txt | grep -v \# | awk '{print $1}'
 	7019
@@ -32,7 +34,7 @@ En el archivo "port_list.txt" tenemos ya almacenado un listado de los puertos qu
 	7054
 	7055
 
-Ya que tenemos una Herramienta o script que descubre los puertos, ahora debemos convertir dicha salida en un formato JSON con esta estructura.::
+Ya que tenemos un script que descubre los puertos, ahora debemos convertir dicha salida en un formato JSON con esta estructura.::
 
 	{"data":[
 		        {"{#ITEM}":"PORT1"},
@@ -69,34 +71,36 @@ Verificamos que estemos teniendo la salida requerida.::
 
 Preferiblemente el comando anterior lo colocamos en un script.::
 
-	vi /usr/local/bin/zabbix/discover-ports.sh
+	vi /usr/local/bin/zabbix/discover-ambientes.sh
+	#!/bin/bash
+	echo '{"data":[';for i in $(cat /home/oracle/scm/port_list.txt | grep -v \# | awk '{print $1}') ;do echo "{\"{#ITEM}\": \"$i\"},";done | sed  '$ s/.$//' ; echo ']}'
 
 Ejecutamos el comando y lo enviamos a un archivo temporal.::
 
-	/usr/local/bin/zabbix/discover-ports.sh > /tmp/discover_port.json
+	/usr/local/bin/zabbix/discover-ambientes.sh > /tmp/discovered_ambientes.json
 
 Ya bien identificado el comando, la creación del script y su salida en formato JSON, debemos ahora introducirlo en el agente de zabbix.
 
-En el archivo de configuración del zabbix "/etc/zabbix/zabbix_agentd.conf" debemos ubicar la siguiente linea, para saber en donde vamos a crear nuestro archivo de configuracion personalizada.::
+En el archivo de configuración del zabbix "/etc/zabbix/zabbix_agentd.conf" debemos ubicar la siguiente linea, para saber en donde vamos a crear nuestro archivo de configuración personalizada.::
 
 	Include=/etc/zabbix/zabbix_agentd.d/*.conf
 
 Procedemos a crear nuestra configuración.::
 
-	vi /etc/zabbix/zabbix_agentd.d/port_custom.conf
-	UserParameter=ambiente.discovery,cat /tmp/discover_port.json;
-	UserParameter=ambiente.status.[*],/usr/local/bin/discover_port_get.sh $1;
+	vi /etc/zabbix/zabbix_agentd.d/ambientes_custom.conf
+	UserParameter=ambiente.discovery,cat /tmp/discovered_ambientes.json;
+	UserParameter=ambiente.status.[*],/usr/local/bin/discover_ambientes_get.sh $1;
 
 Reiniciamos el agente de zabbix.::
 
 	/etc/init.d/zabbix-agent restart
 
-Obetener el status de lo descubierto
+Obtener el status de lo descubierto
 ++++++++++++++++++++++++++++++++++++++
 
-Como vimos anteriormente en el archivo "/etc/zabbix/zabbix_agentd.d/port_custom.conf" existe un script que debemos crear "/usr/local/bin/discover_port_get.sh", este script lo que hace es verificar el status del puerto.::
+Como vimos anteriormente en el archivo "/etc/zabbix/zabbix_agentd.d/ambientes_custom.conf" existe un script que debemos crear "/usr/local/bin/discover_ambientes_get.sh", este script lo que hace es verificar el status del puerto.::
 
-	# vi /usr/local/bin/discover_port_get.sh
+	# vi /usr/local/bin/discover_ambientes_get.sh
 		#!/bin/bash
 		PUERTO="$1"
 		RUNNING=$(netstat -nat | grep -v grep | grep -i listen | grep $PUERTO | wc -l)
@@ -138,13 +142,14 @@ ambiente.discovery.::
 	{"{#ITEM}": "7057"}
 	]}
 
-Ahora con el status y verificamos un puerto que este operativo y otro no
+Ahora con el status y verificamos un puerto que este operativo y otro no. El puerto 7027 NO esta operativo y el puerto 7019 esta operativo.
+
 ambiente.status.::
 
 	# zabbix_get -s 192.168.0.4 -k 'ambiente.status.[7027]'
-	0
+	  0
 	# zabbix_get -s 192.168.0.4 -k 'ambiente.status.[7019]'
-	1
+	  1
 
 
 Crear el Template
@@ -164,13 +169,13 @@ Creamos el template.
 .. figure:: ../images/llc/01.png
 
 
-Llenamos los campos "Template name", "Visible name", asignamos el grupo de "Template" y pulsamos el botón "Add"
+Llenamos los campos "Template name", "Visible name", asignamos el grupo de "Template" y pulsamos el botón "Add". Importante tomar en cuenta los intervalos y esto depende de nuestro criterio.
 
 
 .. figure:: ../images/llc/02.png
 
 
-Se agrega el Template creado por nosotros.
+Se Ingresa al Template creado por nosotros.
 
 
 .. figure:: ../images/llc/03.png
@@ -208,7 +213,7 @@ En el mismo Template creado por nosotros, pulsamos sobre el link "Item prototype
 .. figure:: ../images/llc/07.png
 
 
-Llenamos los campos "Name", "Visible name", "Type", "Key" y pulsamos el botón "Add"
+Llenamos los campos "Name", "Visible name", "Type", "Key" y pulsamos el botón "Add". Importante tomar en cuenta los intervalos y esto depende de nuestro criterio.
 
 
 .. figure:: ../images/llc/08.png
@@ -240,7 +245,7 @@ Nos vamos a cada uno de los HOST que necesitamos tenga el Template creado por no
 .. figure:: ../images/llc/11.png
 
 
-En "Configuration" "HOSTS" observamos como el servidor que tiene 3 Discovery rules solo tiene 75 Items
+En "Configuration" "HOSTS" observamos como el servidor que tiene 3 Discovery rules y solo tiene 75 Items
 
 
 .. figure:: ../images/llc/12.png
@@ -252,7 +257,7 @@ Luego de esperar un rato podemos observar como el mismo servidor que tenia 3 Dis
 .. figure:: ../images/llc/13.png
 
 
-Y podemos ahora ver en los Items del servidor como fueron agregados los Item discoverd.
+Y podemos ahora ver en los Items del servidor como fueron agregados los Item discovered.
 
 
 .. figure:: ../images/llc/14.png
