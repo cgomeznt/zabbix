@@ -154,7 +154,7 @@ Ejecutamos la siguiente instrucción para restaurar la copia en la Base de Datos
 
 Hasta este punto ya podemos ingresar al Zabbix y vamos observar que tenemos todo hasta la fecha de la cual fue realizado el full Backup
 
-Mustro aqui como vaciar los Binary Logs, pero siempre tendremos errores de Primary Key, por lo cual confió únicamente en el Full Backup.::
+Muestro aquí como vaciar los Binary Logs, pero siempre tendremos errores de Primary Key, por lo cual confió únicamente en el Full Backup.::
 
 	[root@srvscmutils ~]# mysqlbinlog mariadb/mariadb-bin.000019 | mysql -uroot -p
 	Enter password: 
