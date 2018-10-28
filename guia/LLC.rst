@@ -75,7 +75,7 @@ Preferiblemente el comando anterior lo colocamos en un script.::
 	#!/bin/bash
 	echo '{"data":[';for i in $(cat /home/oracle/scm/port_list.txt | grep -v \# | awk '{print $1}') ;do echo "{\"{#ITEM}\": \"$i\"},";done | sed  '$ s/.$//' ; echo ']}'
 
-Ejecutamos el comando y lo enviamos a un archivo temporal.::
+Ejecutamos el comando y lo enviamos a un archivo temporal. IMPORTANTE colocar este script en un crontab::
 
 	/usr/local/bin/zabbix/discover-ambientes.sh > /tmp/discovered_ambientes.json
 
@@ -169,7 +169,7 @@ Creamos el template.
 .. figure:: ../images/llc/01.png
 
 
-Llenamos los campos "Template name", "Visible name", asignamos el grupo de "Template" y pulsamos el botón "Add". Importante tomar en cuenta los intervalos y esto depende de nuestro criterio.
+Llenamos los campos "Template name", "Visible name", asignamos el grupo de "Template" y pulsamos el botón "Add". 
 
 
 .. figure:: ../images/llc/02.png
@@ -187,7 +187,7 @@ Luego de seleccionar el Template creado, pulsamos sobre el link "Discovery rules
 .. figure:: ../images/llc/04.png
 
 
-Creamos la Regla que hace el descubrimiento de los ITEMS y pulsamo sobre el botón "Add"
+Creamos la Regla que hace el descubrimiento de los ITEMS y pulsamo sobre el botón "Add". Importante tomar en cuenta los intervalos y esto depende de nuestro criterio.
 
 
 .. figure:: ../images/llc/05.png
