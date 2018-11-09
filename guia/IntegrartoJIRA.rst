@@ -1,7 +1,7 @@
 Integrando Zabbix en JIRA
 =============================
 
-Crear un ticket en JIRA con wget en REST
+Crear un ticket en JIRA con curl en REST
 ++++++++++++++++++++++++++++++++++++++++
 
 curl -D- -u cgomez:America21 -X POST  --data '{"fields":{"project":{"key": "IT"},"summary": "REST Integration Zabbix to JIRA.","description": "Creating of an issue using project keys and issue type names using the REST API","issuetype": {"name": "Request IT"}}}' -H "Content-Type: application/json" https://consisint.atlassian.net/rest/api/2/issue/
@@ -52,10 +52,8 @@ Vamos utilizar este::
 
 
 	# Default values, adapt them to your configuration
-	TICKET_CLASS="UserRequest"
-	ORGANIZATION="SELECT Organization JOIN FunctionalCI AS CI ON CI.org_id=Organization.id WHERE CI.name='"${HOST}"'"
-	TITLE="$HOST with SERVICE PROBLEM"
-	DESCRIPTION="The service $SERVICE is in state $SERVICE_STATUS on $HOST"
+	JIRA_SUMMARY="$HOST with SERVICE PROBLEM"
+	JIRA_DESCRIPTION="The service $SERVICE is in state $SERVICE_STATUS on $HOST"
 	 
 	# Let's create the ticket via the REST/JSON API
 	curl -D- -u $JIRA_USER:$JIRA_PWD -X POST  --data '{"fields":{"project":{"key": "$JIRA_PROJECT"},"summary": "$JIRA_SUMMARY","description": "$JIRA_DESCRIPTION","issuetype": {"name": "$JIRA_ISSUE_TYPE"}}}' -H "Content-Type: application/json" $JIRA_URL
@@ -65,20 +63,12 @@ Vamos utilizar este::
 	 
 	echo -e "###########################"
 
-		PATTERN='"key":"([0-9])+"'
 		if [[ $RESULT =~ $PATTERN ]]; then
 		        echo "Ticket created successfully" >> /tmp/creaticket-JIRA.log
 		else
 		        echo "ERROR: failed to create ticket" >> /tmp/creaticket-JIRA.log
 		        echo $RESULT >> /tmp/creaticket-JIRA.log
 		fi
-	# else
-	#         echo "Service State Type != HARD, doing nothing"
-	# fi
-
-
-
-
 
 
 Como usarlo
