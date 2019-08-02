@@ -11,7 +11,9 @@ https://www.zabbix.com/download?zabbix=3.0&os_distribution=debian&os_version=8_j
 Instale y configure el servidor Zabbix para su plataforma
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-a. Instalar Zabbix repository::
+a. Instalar Zabbix repository
+++++++++++++++++++++++++++++++
+::
 
 	# wget https://repo.zabbix.com/zabbix/3.0/debian/pool/main/z/zabbix-release/zabbix-release_3.0-2+jessie_all.deb
 	# dpkg -i zabbix-release_3.0-2+jessie_all.deb
