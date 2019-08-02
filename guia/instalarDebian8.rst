@@ -393,11 +393,21 @@ Cambiando el password de un usuario que es administrador::
 	mysql>
 
 
-
-
-
-
-
 Conéctese a su interfaz de Zabbix recién instalada: http://server_ip_or_name/zabbix 
-Siga los pasos descritos en la documentación de Zabbix: Instalación de la interfaz.
+
+.. figure:: ../Debian8/01.png
+
+.. figure:: ../Debian8/02.png
+
+.. figure:: ../Debian8/03.png
+
+.. figure:: ../Debian8/04.png
+
+.. figure:: ../Debian8/05.png
+
+.. figure:: ../Debian8/06.png
+
+.. figure:: ../Debian8/07.png
+
+
 
