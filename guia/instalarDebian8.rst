@@ -395,19 +395,19 @@ Cambiando el password de un usuario que es administrador::
 
 Conéctese a su interfaz de Zabbix recién instalada: http://server_ip_or_name/zabbix 
 
-.. figure:: ../images/Debian8/01.png
+.. figure:: ../images/Debian8/1.png
 
-.. figure:: ../images/Debian8/02.png
+.. figure:: ../images/Debian8/2.png
 
-.. figure:: ../images/Debian8/03.png
+.. figure:: ../images/Debian8/3.png
 
-.. figure:: ../images/Debian8/04.png
+.. figure:: ../images/Debian8/4.png
 
-.. figure:: ../images/Debian8/05.png
+.. figure:: ../images/Debian8/5.png
 
-.. figure:: ../images/Debian8/06.png
+.. figure:: ../images/Debian8/6.png
 
-.. figure:: ../images/Debian8/07.png
+.. figure:: ../images/Debian8/7.png
 
 
 
