@@ -15,5 +15,6 @@
 * [Personalizar Logo de Zabbix 3.x ](guia/personalizarlog.rst) 
 * [Active Directory Authentication via LDAP Zabbix 3.x ](guia/adldap.rst) 
 * [Backup and Restore Zabbix 3.x ](guia/Backup_Restore_Mariadb_binary_logs.rst)
+* [Buscar y cambiar clave de un usuario Administrador](guia/Buscar_cambiar_clave_usuario_Administrador.rst)
 * [Integrar Zabbix 3.x en JIRA](guia/IntegrartoJIRA.rst)
 
