@@ -149,27 +149,6 @@ Verificamos la versión instalada::
 	# mysql -V
 	mysql  Ver 15.1 Distrib 10.6.5-MariaDB, for Linux (x86_64) using readline 5.1
 
-Creamos la base de datos que se utilizara para zabbix::
-
-	# mysql -uroot -pr00tme
-
-	Welcome to the MariaDB monitor.  Commands end with ; or \g.
-	Your MariaDB connection id is 10
-	Server version: 5.5.60-MariaDB MariaDB Server
-
-	Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
-
-	Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-	MariaDB [(none)]> create database zabbix character set utf8 collate utf8_bin;
-	Query OK, 1 row affected (0.00 sec)
-
-	MariaDB [(none)]> grant all privileges on zabbix.* to zabbix@localhost identified by 'r00tme';
-	Query OK, 0 rows affected (0.00 sec)
-
-	MariaDB [(none)]> quit;
-	Bye
-
 
 Instalamos y configuramos Zabbix server
 +++++++++++++++++++++++++++++++++++++++++
