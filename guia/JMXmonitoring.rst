@@ -167,3 +167,8 @@ Luego podemos ir a Monitoreo y seleccionar el Host y podemos ver **Last data** o
 
 .. figure:: ../images/JMX/10.png
 
+
+
+
+.. figure:: ../images/JMX/11.png
+
