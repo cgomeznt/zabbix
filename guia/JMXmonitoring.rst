@@ -130,3 +130,40 @@ La clave en la captura de pantalla a continuación dice::
 
 
 
+Hagamos otro ejercicio funcional
+==============================
+
+Instalar un Tomcat, puede utilizar este link para instalarlo.
+
+https://github.com/cgomeznt/Tomcat/blob/master/guia/instalar_tomcat7.rst
+
+
+Y para habilitar el JMX en el Tomcat puede ver este otro link.
+
+https://github.com/cgomeznt/Tomcat/blob/master/guia/jmxremote.rst
+
+En el servidor de Zabbix creamos un Host
+
+.. figure:: ../images/JMX/07.png
+
+
+
+Al Host creado le asignamos un template llamado "Template App Generic Java JMX"
+
+
+.. figure:: ../images/JMX/08.png
+
+
+
+
+Luego de agregar el Template esperamos unos minutos y se va ver como ahora el Host tiene varios Items y Triggers
+
+
+.. figure:: ../images/JMX/09.png
+
+
+Luego podemos ir a Monitoreo y seleccionar el Host y podemos ver **Last data** o **Graphs**
+
+
+.. figure:: ../images/JMX/10.png
+
