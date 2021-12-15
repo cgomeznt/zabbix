@@ -10,6 +10,7 @@
 * [Configurar Telegram Graphic con Zabbix](guia/telegramgraphic.rst)
 * [Configurar MySQL partitioning](guia/msqlpartitioning.rst)
 * [Instalar ZABBIX 3.4 en CentOS 7](guia/instalarCentOS7.rst) 
+* [Instalar ZABBIX 5.0 en CentOS 7](guia/instalarCentOS7XZabbix50.rst) 
 * [Configurar ZABBIX 3.4 para el Auto registro de HOSTs](guia/autoregistrohost.rst) 
 * [Low Level Discovery (LLD)](guia/LLC.rst) 
 * [Personalizar Logo de Zabbix 3.x ](guia/personalizarlog.rst) 
