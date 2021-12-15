@@ -12,6 +12,10 @@ Para recuperar el valor de un contador JMX particular en un host, el servidor Za
 
 Para obtener más detalles y configuración, consulte la sección de puerta de enlace Zabbix Java.
 
+Link Oficial
+
+https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/jmx_monitoring
+
 
 Habilitación de la supervisión JMX remota para la aplicación Java
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
