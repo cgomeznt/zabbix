@@ -1,4 +1,4 @@
-## Zabbix
+## Zabbix 
 
 * [Instalar Zabbix en Linux](guia/instalar.rst) 
 * [Configurar Auto Registro](guia/autoregistro.rst)
