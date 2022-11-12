@@ -1,0 +1,6 @@
+https://zabbix.credicard.com.ve/screenedit.php?cancel=1&screenid=385
+
+https://zabbix.credicard.com.ve/screens.php?elementid=383
+
+http://wiki.credicard.com.ve/kb/aplicaciones/blob/master/Lineamiento_Reglas/NormasyReglas.rst
+
