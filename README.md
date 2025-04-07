@@ -22,4 +22,5 @@
 * [Integrar Zabbix 3.x en JIRA](guia/IntegrartoJIRA.rst)
 * [Zabbix API y Curl](guia/api_curl.rst)
 * [Integración_Zabbix_7.2_con_OpenAI_para_Alarmas](guia/Integracion_Zabbix_7.2_OpenAI_Alarmas.rst)
+* [Integración_Zabbix_7.2_con_DeepSeek_para_Alarmas](guia/Integracion_Zabbix_7.2_DeepSeek_Alarmas.rst)
 
