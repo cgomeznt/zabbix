@@ -12,7 +12,7 @@ Prerrequisitos
 --------------
 - Zabbix 7.2 instalado y funcionando
 - SMTP local configurado y operativo
-- API Key de Deepseek (obtenida desde https://platform.deepseek.com/)
+- API Key de Deepseek (obtenida desde https://platform.deepseek.com/) sk-e069028fe9c34bce90f2d14d9c3cc903
 - Acceso root/administrador al servidor Zabbix
 
 -------------------------
