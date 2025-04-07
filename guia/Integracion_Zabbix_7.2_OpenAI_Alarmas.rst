@@ -2,6 +2,13 @@
 Integración de Zabbix 7.2 con OpenAI para Alarmas
 ==================================================
 
+El prompt de la IA
+-------------------
+hola deepseek, por favor ayudame, trabajo en tecnologia y tengo la administración de la herramienta de monitoreo Zabbix.
+necesito tu ayuda para tener un paso a paso detallado que explique como integrar zabbix 7.2 con OpenAI, que me indique las posibles soluciones cuando aparezca una alarma en Zabbix y me explique como con un "action de Zabbix" puedo enviarlo por correo a los buzones que ya estan asociado a los usuarios, el SMTP es local y ya esta configurado y funcionando.
+Por favor enviar en formato "rst"
+
+
 Objetivo
 --------
 1. Consultar a OpenAI cuando ocurra una alarma en Zabbix para obtener soluciones automatizadas.
