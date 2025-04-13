@@ -86,108 +86,115 @@ Crea el archivo /usr/lib/zabbix/alertscripts/ai_advisor.sh:
 
 
 Paso 3: Dar permisos al script
-bash
-Copy
-chmod +x /usr/lib/zabbix/alertscripts/ai_advisor.sh
-chown zabbix:zabbix /usr/lib/zabbix/alertscripts/ai_advisor.sh
-mkdir -p /var/log/zabbix
-touch /var/log/zabbix/ai_advisor.log
-chown zabbix:zabbix /var/log/zabbix/ai_advisor.log
+
+.. code-block:: bash
+
+   chmod +x /usr/lib/zabbix/alertscripts/ai_advisor.sh
+   chown zabbix:zabbix /usr/lib/zabbix/alertscripts/ai_advisor.sh
+   mkdir -p /var/log/zabbix
+   touch /var/log/zabbix/ai_advisor.log
+   chown zabbix:zabbix /var/log/zabbix/ai_advisor.log
+
 Paso 4: Instalar dependencias
-bash
-Copy
-apt-get install jq curl  # Para Debian/Ubuntu
-# o
-yum install jq curl      # Para RHEL/CentOS
-Paso 5: Configurar acción en Zabbix
-Ve a "Administration" → "Media Types"
 
-Crea un nuevo tipo de medio:
+.. code-block:: bash
 
-Name: "AI Advisor"
+   apt-get install jq curl  # Para Debian/Ubuntu
+   # o
+   yum install jq curl      # Para RHEL/CentOS
 
-Type: "Script"
+1. Configurar un tipo de media personalizado:
 
-Script name: ai_advisor.sh
+Ve a "Alertas" → "Tipos de medios" en la interfaz web de Zabbix. 
 
-Ve a "Configuration" → "Actions"
+Crea un nuevo tipo de media y selecciona "Script" como tipo. 
 
-Crea una nueva acción:
+Define los parámetros del script, como la ruta al script, los parámetros que recibirá y el tipo de salida (por ejemplo, HTML para un pop-up). 
 
-Name: "Consultar IA para solución"
+2. Crear el script de alerta:
 
-Conditions: Selecciona los triggers relevantes
+Crea un script (por ejemplo, un script de shell o un script de Python) que realice las siguientes tareas:
 
-Operations:
+Recibe la información de la alerta (por ejemplo, el nombre de la alerta, el valor del trigger). 
 
-Add: "Send message"
+Genera el contenido del pop-up en formato HTML. 
 
-To: "AI Advisor"
+Realiza la acción deseada (por ejemplo, ejecutar un comando, reiniciar un servicio). 
 
-Message: Usa estos parámetros:
+El script se ejecutará en el servidor Zabbix. 
 
-Copy
-{TRIGGER.NAME}
-{HOST.NAME}
-{TRIGGER.SEVERITY}
-{TRIGGER.DESCRIPTION}
-Paso 6: Configurar notificaciones (Opcional)
-Para recibir las soluciones por email o Telegram:
+El script debe estar ubicado en el directorio especificado en la variable AlertScriptsPath de la configuración del servidor Zabbix. 
+
+3. Configurar las acciones de Zabbix:
+
+Ve a "Acciones" en la interfaz web de Zabbix. 
+
+Crea una nueva acción o modifica una existente. 
+
+Configura las operaciones de la acción para que utilicen el tipo de media personalizado que has creado. 
+
+Define cuándo se deben ejecutar estas acciones (por ejemplo, cuando se activa un trigger). 
 
 Crea un nuevo script /usr/lib/zabbix/alertscripts/send_solution.sh:
 
-bash
-Copy
-#!/bin/bash
+.. code-block:: bash
 
-EMAIL="$1"
-SUBJECT="Solución para problema en Zabbix: $2"
-MESSAGE="$3"
+   #!/bin/bash
+   
+   EMAIL="$1"
+   SUBJECT="Solución para problema en Zabbix: $2"
+   MESSAGE="$3"
+   
+   # Para email (requiere mailx configurado)
+   echo "$MESSAGE" | mailx -s "$SUBJECT" "$EMAIL"
+   
+   # O para Telegram (opcional)
+   # TELEGRAM_TOKEN="tu_token"
+   # TELEGRAM_CHAT_ID="tu_chat_id"
+   # curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+   #   -d chat_id="${TELEGRAM_CHAT_ID}" \
+   #   -d text="${SUBJECT}%0A%0A${MESSAGE}"
 
-# Para email (requiere mailx configurado)
-echo "$MESSAGE" | mailx -s "$SUBJECT" "$EMAIL"
-
-# O para Telegram (opcional)
-# TELEGRAM_TOKEN="tu_token"
-# TELEGRAM_CHAT_ID="tu_chat_id"
-# curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
-#   -d chat_id="${TELEGRAM_CHAT_ID}" \
-#   -d text="${SUBJECT}%0A%0A${MESSAGE}"
 Modifica el script ai_advisor.sh para llamar a este script al final:
 
-bash
-Copy
-# Añade esto al final del script ai_advisor.sh
-/usr/lib/zabbix/alertscripts/send_solution.sh "tu_email@dominio.com" "${ZABBIX_TRIGGER_NAME}" "${SOLUTION}"
+.. code-block:: bash
+
+   # Añade esto al final del script ai_advisor.sh
+   /usr/lib/zabbix/alertscripts/send_solution.sh "tu_email@dominio.com" "${ZABBIX_TRIGGER_NAME}" "${SOLUTION}"
+
 Alternativa: Usar modelos locales con LocalAI
 Si prefieres no depender de APIs externas:
 
 Instala LocalAI en un servidor local:
 
-bash
-Copy
-git clone https://github.com/go-skynet/LocalAI
-cd LocalAI
-docker compose up -d
+.. code-block:: bash
+
+   git clone https://github.com/go-skynet/LocalAI
+   cd LocalAI
+   docker compose up -d
+
 Descarga un modelo compatible (ej. GPT4All):
 
-bash
-Copy
-wget https://gpt4all.io/models/gguf/gpt4all-falcon-q4_0.gguf -O models/gpt4all-falcon.gguf
-Modifica el script ai_advisor.sh para apuntar a tu LocalAI:
+.. code-block:: bash
 
-bash
-Copy
-# Cambia la línea de curl por:
-RESPONSE=$(curl -s -X POST "http://localhost:8080/v1/chat/completions" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "gpt4all-falcon",
-    "messages": [
-      {"role": "user", "content": "'"${PROMPT}"'"}
-    ]
-  }')
+   wget https://gpt4all.io/models/gguf/gpt4all-falcon-q4_0.gguf -O models/gpt4all-falcon.gguf
+   Modifica el script ai_advisor.sh para apuntar a tu LocalAI:
+
+.. code-block:: bash
+   
+   # Cambia la línea de curl por:
+   RESPONSE=$(curl -s -X POST "http://localhost:8080/v1/chat/completions" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "model": "gpt4all-falcon",
+       "messages": [
+         {"role": "user", "content": "'"${PROMPT}"'"}
+       ]
+     }')
+
 Consideraciones importantes
+-------------------------------
+
 Privacidad: No envíes datos sensibles a APIs externas
 
 Costos: OpenRouter tiene límites gratuitos, monitorea su uso
