@@ -105,40 +105,22 @@ Paso 4: Instalar dependencias
    # o
    yum install jq curl      # Para RHEL/CentOS
 
-1. Configurar un tipo de media personalizado:
+1. Configurar un Scripts personalizado:
 -----------------------------------------------
 
-Ve a "Alertas" → "Tipos de medios" en la interfaz web de Zabbix. 
+Ve a "Alerts" → "Scripts" en la interfaz web de Zabbix. 
 
-Crea un nuevo tipo de media y selecciona "Script" como tipo. 
+Crea un nuevo Scripts llamado **AI Advisor-Script** con los siguientes parametros. 
 
-Define los parámetros del script, como la ruta al script, los parámetros que recibirá y el tipo de salida (por ejemplo, HTML para un pop-up). 
+Scope: Manual host action
 
-2. Crear el script de alerta:
----------------------------------
+Type: Script
 
-Crea un script (por ejemplo, un script de shell o un script de Python) que realice las siguientes tareas:
+Execute on: Zabbix proxy or server
 
-Recibe la información de la alerta (por ejemplo, el nombre de la alerta, el valor del trigger). 
+Commands: /usr/lib/zabbix/alertscripts/ai_advisor.sh {TRIGGER.NAME} {HOST.NAME} {TRIGGER.SEVERITY} {TRIGGER.DESCRIPTION}
 
-Genera el contenido del pop-up en formato HTML. 
-
-Realiza la acción deseada (por ejemplo, ejecutar un comando, reiniciar un servicio). 
-
-El script se ejecutará en el servidor Zabbix. 
-
-El script debe estar ubicado en el directorio especificado en la variable AlertScriptsPath de la configuración del servidor Zabbix. 
-
-3. Configurar las acciones de Zabbix:
-------------------------------------------
-
-Ve a "Acciones" en la interfaz web de Zabbix. 
-
-Crea una nueva acción o modifica una existente. 
-
-Configura las operaciones de la acción para que utilicen el tipo de media personalizado que has creado. 
-
-Define cuándo se deben ejecutar estas acciones (por ejemplo, cuando se activa un trigger). 
+Lo salvamos
 
 Crea un nuevo script /usr/lib/zabbix/alertscripts/send_solution.sh:
 
