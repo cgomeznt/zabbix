@@ -12,6 +12,7 @@ Integración de Zabbix con IA en Venezuela (Usando LLMs permitidos)
 Aquí tienes un paso a paso detallado para integrar Zabbix con modelos de IA accesibles en Venezuela, usando scripts bash para GNU/Linux.
 
 Opciones de IA disponibles en Venezuela
+----------------------------------------
 OpenRouter.ai (accesible y con modelos gratuitos)
 
 Hugging Face (algunos modelos son accesibles)
@@ -19,7 +20,9 @@ Hugging Face (algunos modelos son accesibles)
 LocalAI (si decides instalar modelos locales)
 
 Solución recomendada: Usar OpenRouter.ai
+
 Paso 1: Configurar API Key en OpenRouter
+========================================
 Regístrate en https://openrouter.ai/
 
 Ve a "API Keys" y crea una nueva clave
@@ -55,6 +58,7 @@ Proporciona:
 2. Pasos para diagnosticar
 3. Solución recomendada
 4. Comandos Linux específicos para resolver el problema"
+==========================================================
 
 # Consultar a la API de OpenRouter
 RESPONSE=$(curl -s -X POST "https://openrouter.ai/api/v1/chat/completions" \
