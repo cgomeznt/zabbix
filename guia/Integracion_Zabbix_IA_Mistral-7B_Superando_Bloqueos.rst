@@ -22,7 +22,7 @@ LocalAI (si decides instalar modelos locales)
 Solución recomendada: Usar OpenRouter.ai
 
 Paso 1: Configurar API Key en OpenRouter
-========================================
+--------------------------------------
 Regístrate en https://openrouter.ai/
 
 Ve a "API Keys" y crea una nueva clave
@@ -30,7 +30,7 @@ Ve a "API Keys" y crea una nueva clave
 Anota tu API Key
 
 Paso 2: Crear script bash para consultar la IA
-===============================================
+--------------------------------------------------
 Crea el archivo /usr/lib/zabbix/alertscripts/ai_advisor.sh:
 
 .. code-block:: bash
@@ -86,6 +86,7 @@ Crea el archivo /usr/lib/zabbix/alertscripts/ai_advisor.sh:
 
 
 Paso 3: Dar permisos al script
+---------------------------------
 
 .. code-block:: bash
 
@@ -96,6 +97,7 @@ Paso 3: Dar permisos al script
    chown zabbix:zabbix /var/log/zabbix/ai_advisor.log
 
 Paso 4: Instalar dependencias
+--------------------------------
 
 .. code-block:: bash
 
@@ -104,6 +106,7 @@ Paso 4: Instalar dependencias
    yum install jq curl      # Para RHEL/CentOS
 
 1. Configurar un tipo de media personalizado:
+-----------------------------------------------
 
 Ve a "Alertas" → "Tipos de medios" en la interfaz web de Zabbix. 
 
@@ -112,6 +115,7 @@ Crea un nuevo tipo de media y selecciona "Script" como tipo.
 Define los parámetros del script, como la ruta al script, los parámetros que recibirá y el tipo de salida (por ejemplo, HTML para un pop-up). 
 
 2. Crear el script de alerta:
+---------------------------------
 
 Crea un script (por ejemplo, un script de shell o un script de Python) que realice las siguientes tareas:
 
@@ -126,6 +130,7 @@ El script se ejecutará en el servidor Zabbix.
 El script debe estar ubicado en el directorio especificado en la variable AlertScriptsPath de la configuración del servidor Zabbix. 
 
 3. Configurar las acciones de Zabbix:
+------------------------------------------
 
 Ve a "Acciones" en la interfaz web de Zabbix. 
 
@@ -163,6 +168,8 @@ Modifica el script ai_advisor.sh para llamar a este script al final:
    /usr/lib/zabbix/alertscripts/send_solution.sh "tu_email@dominio.com" "${ZABBIX_TRIGGER_NAME}" "${SOLUTION}"
 
 Alternativa: Usar modelos locales con LocalAI
+---------------------------------------------
+
 Si prefieres no depender de APIs externas:
 
 Instala LocalAI en un servidor local:
