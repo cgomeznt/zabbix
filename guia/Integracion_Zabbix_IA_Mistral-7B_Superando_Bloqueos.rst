@@ -9,7 +9,7 @@ Integración Zabbix + Mistral-7B Superando Bloqueos
 Integración de Zabbix con IA en Venezuela (Usando LLMs permitidos)
 ==================================================================
 
-Aquí tienes un paso a paso detallado para integrar Zabbix con modelos de IA accesibles en Venezuela, usando scripts bash para GNU/Linux.
+Integrar Zabbix con modelos de IA accesibles en Venezuela, usando scripts bash para GNU/Linux.
 
 Opciones de IA disponibles en Venezuela
 ----------------------------------------
@@ -17,21 +17,21 @@ OpenRouter.ai (accesible y con modelos gratuitos)
 
 Hugging Face (algunos modelos son accesibles)
 
-LocalAI (si decides instalar modelos locales)
+LocalAI (instalar modelos locales)
 
-Solución recomendada: Usar OpenRouter.ai
+Solución a utilizar en esta paso a paso: Hugging Face, con el modelo Mistral-7B-Instruct-v0.2
 
-Paso 1: Configurar API Key en OpenRouter
+Paso 1: Configurar API Key en Hugging Face
 --------------------------------------
-Regístrate en https://openrouter.ai/
+Regístrate en https://huggingface.co
 
-Ve a "API Keys" y crea una nueva clave
+Ve a "API Keys" y crea una nueva clave. https://huggingface.co/settings/tokens
 
 Anota tu API Key
 
 Paso 2: Crear script bash para consultar la IA
 --------------------------------------------------
-Crea el archivo /usr/lib/zabbix/alertscripts/ai_advisor.sh:
+Crear el archivo /usr/lib/zabbix/alertscripts/ai_advisor.sh:
 
 .. code-block:: bash
 
@@ -81,7 +81,7 @@ Crea el archivo /usr/lib/zabbix/alertscripts/ai_advisor.sh:
    echo "$SOLUTION"
    mkdir -p /var/log/zabbix
    echo "$(date) - ${ZABBIX_HOSTNAME} - ${ZABBIX_TRIGGER_NAME}: ${SOLUTION}" >> /var/log/zabbix/ai_advisor.log
-   #echo "$SOLUTION" | mailx -s "Solución para ${ZABBIX_TRIGGER_NAME}" cgomeznt@gmail.com
+   #echo "$SOLUTION" | mailx -s "Solución para ${ZABBIX_TRIGGER_NAME}" cgomeznt@tu_dominio.com
    exit 0
 
 
@@ -105,12 +105,12 @@ Paso 4: Instalar dependencias
    # o
    yum install jq curl      # Para RHEL/CentOS
 
-1. Configurar un Scripts personalizado:
+1. Configurar un Scripts personalizado en Zabbix:
 -----------------------------------------------
 
-Ve a "Alerts" → "Scripts" en la interfaz web de Zabbix. 
+En la interfaz web de Zabbiz ir a "Alerts" → "Scripts".
 
-   Crea un nuevo Scripts llamado **AI Advisor-Script** con los siguientes parametros. 
+   Crear un nuevo Scripts llamado **AI Advisor-Script** con los siguientes parametros. 
 
    Scope: Manual host action
    
@@ -127,7 +127,7 @@ Ve a "Alerts" → "Scripts" en la interfaz web de Zabbix.
 
 Debemos generar una alarma para que se muestre en **Problems**. (En este ejemplo creamos un ITEM del tipo Zabbix Trapper y un TRIGGER.
 
-Desde la consola ejecutamos el **zabbix_sender**
+Desde la terminal del servidor de Zabbix ejecutamos el **zabbix_sender**
 
 Para activar la alarma:
 
@@ -151,11 +151,11 @@ Hacemos clic sobre el nombre del servidor y luego clic en el pop-up en sobre **A
 
 Aparecera un ventana con la información que nos suministra la IA de Mistral-7B-Instruct-v0.2. 
 
-**NOTA:** Tenga calma, esto sale a consultar a la IA
+**NOTA:** Tenga calma, esto sale a consultar a la IA de Hugging Face, con el modelo Mistral-7B-Instruct-v0.2
 
 .. figure:: ../images/IA/03.png
 
-Crea un nuevo script /usr/lib/zabbix/alertscripts/send_solution.sh:
+Crea un nuevo script /usr/lib/zabbix/alertscripts/send_solution.sh (opcional):
 
 .. code-block:: bash
 
@@ -185,9 +185,9 @@ Modifica el script ai_advisor.sh para llamar a este script al final:
 Alternativa: Usar modelos locales con LocalAI
 ---------------------------------------------
 
-Si prefieres no depender de APIs externas:
+Para no depender de APIs externas:
 
-Instala LocalAI en un servidor local:
+Instalar LocalAI en un servidor local:
 
 .. code-block:: bash
 
@@ -217,13 +217,10 @@ Descarga un modelo compatible (ej. GPT4All):
 Consideraciones importantes
 -------------------------------
 
-Privacidad: No envíes datos sensibles a APIs externas
+Privacidad: No enviar datos sensibles a APIs externas
 
-Costos: OpenRouter tiene límites gratuitos, monitorea su uso
+Costos: Hugging Face, tiene límites gratuitos, monitorear el uso.
 
-Validación: Siempre verifica las soluciones sugeridas antes de aplicarlas
+Logging: Mantén logs de todas las interacciones para auditoría.
 
-Logging: Mantén logs de todas las interacciones para auditoría
-
-Este setup te permitirá recibir soluciones automatizadas para los problemas detectados por Zabbix, usando IA accesible desde Venezuela.
 
