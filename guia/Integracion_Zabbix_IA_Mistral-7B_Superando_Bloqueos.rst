@@ -144,16 +144,28 @@ Para resolver la alarma:
 Aparece en **Problems** una alarma como esta:
 
 .. figure:: ../images/IA/01.png
+   :width: 80%
+   :alt: Muestra de la alarma
+   :align: center
+
 
 Hacemos clic sobre el nombre del servidor y luego clic en el pop-up en sobre **AI Advisor-Script**
 
 .. figure:: ../images/IA/02.png
+   :width: 80%
+   :alt: Seleccionar AI Advisor-Script
+   :align: center
+
 
 Aparecera un ventana con la información que nos suministra la IA de Mistral-7B-Instruct-v0.2. 
 
 **NOTA:** Tenga calma, esto sale a consultar a la IA de Hugging Face, con el modelo Mistral-7B-Instruct-v0.2
 
 .. figure:: ../images/IA/03.png
+   :width: 80%
+   :alt: Respuesta de Mistral-7B
+   :align: center
+
 
 Crea un nuevo script /usr/lib/zabbix/alertscripts/send_solution.sh (opcional):
 
