@@ -122,6 +122,39 @@ Ve a "Alerts" → "Scripts" en la interfaz web de Zabbix.
    
    Lo salvamos
 
+2. Probamos el funcionamiento de script:
+-----------------------------------------------
+
+Debemos generar una alarma para que se muestre en **Problems**. (En este ejemplo creamos un ITEM del tipo Zabbix Trapper y un TRIGGER.
+
+Desde la consola ejecutamos el **zabbix_sender**
+
+Para activar la alarma:
+
+.. code-block:: bash
+
+   zabbix_sender -vv -z localhost -p 10051 -s "Zabbix server" -k test-ia -o 1
+
+Para resolver la alarma:
+
+.. code-block:: bash
+
+   zabbix_sender -vv -z localhost -p 10051 -s "Zabbix server" -k test-ia -o 1
+
+Aparece en **Problems** una alarma como esta:
+
+.. figure:: ../images/01.png
+
+Hacemos clic sobre el nombre del servidor y luego clic en el pop-up en sobre **AI Advisor-Script**
+
+.. figure:: ../images/02.png
+
+Aparecera un ventana con la información que nos suministra la IA de Mistral-7B-Instruct-v0.2. 
+
+**NOTA:** Tenga calma, esto sale a consultar a la IA
+
+.. figure:: ../images/03.png
+
 Crea un nuevo script /usr/lib/zabbix/alertscripts/send_solution.sh:
 
 .. code-block:: bash
