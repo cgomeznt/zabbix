@@ -110,17 +110,17 @@ Paso 4: Instalar dependencias
 
 Ve a "Alerts" → "Scripts" en la interfaz web de Zabbix. 
 
-Crea un nuevo Scripts llamado **AI Advisor-Script** con los siguientes parametros. 
+   Crea un nuevo Scripts llamado **AI Advisor-Script** con los siguientes parametros. 
 
-Scope: Manual host action
-
-Type: Script
-
-Execute on: Zabbix proxy or server
-
-Commands: /usr/lib/zabbix/alertscripts/ai_advisor.sh {TRIGGER.NAME} {HOST.NAME} {TRIGGER.SEVERITY} {TRIGGER.DESCRIPTION}
-
-Lo salvamos
+   Scope: Manual host action
+   
+   Type: Script
+   
+   Execute on: Zabbix proxy or server
+   
+   Commands: /usr/lib/zabbix/alertscripts/ai_advisor.sh {TRIGGER.NAME} {HOST.NAME} {TRIGGER.SEVERITY} {TRIGGER.DESCRIPTION}
+   
+   Lo salvamos
 
 Crea un nuevo script /usr/lib/zabbix/alertscripts/send_solution.sh:
 
