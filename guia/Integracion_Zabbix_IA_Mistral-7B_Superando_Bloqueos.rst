@@ -33,7 +33,7 @@ Paso 2: Crear script bash para consultar la IA
 ===============================================
 Crea el archivo /usr/lib/zabbix/alertscripts/ai_advisor.sh:
 
-.. command:: bash
+.. code-block:: bash
 
    #!/bin/bash
    
