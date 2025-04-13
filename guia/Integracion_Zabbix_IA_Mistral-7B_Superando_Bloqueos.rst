@@ -48,7 +48,7 @@ Crea el archivo /usr/lib/zabbix/alertscripts/ai_advisor.sh:
    # Preparar el prompt (formato Mistral-7B compatible con JSON)
    read -r -d '' PROMPT << EOM
    [INST] Eres un experto en sistemas Linux y monitorización con Zabbix. Analiza este problema y provee una solución concisa paso a paso en español:
-   
+
    Trigger: ${ZABBIX_TRIGGER_NAME}
    Host: ${ZABBIX_HOSTNAME}
    Severidad: ${ZABBIX_SEVERITY}
@@ -143,17 +143,17 @@ Para resolver la alarma:
 
 Aparece en **Problems** una alarma como esta:
 
-.. figure:: ../images/01.png
+.. figure:: ../images/IA/01.png
 
 Hacemos clic sobre el nombre del servidor y luego clic en el pop-up en sobre **AI Advisor-Script**
 
-.. figure:: ../images/02.png
+.. figure:: ../images/IA/02.png
 
 Aparecera un ventana con la información que nos suministra la IA de Mistral-7B-Instruct-v0.2. 
 
 **NOTA:** Tenga calma, esto sale a consultar a la IA
 
-.. figure:: ../images/03.png
+.. figure:: ../images/IA/03.png
 
 Crea un nuevo script /usr/lib/zabbix/alertscripts/send_solution.sh:
 
