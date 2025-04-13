@@ -6,272 +6,187 @@ Integración Zabbix + Mistral-7B Superando Bloqueos
    :depth: 3
    :local:
 
-1. Configuración Inicial
-=======================
+Integración de Zabbix con IA en Venezuela (Usando LLMs permitidos)
+==================================================================
 
-1.1. Requisitos Previos
-----------------------
+Aquí tienes un paso a paso detallado para integrar Zabbix con modelos de IA accesibles en Venezuela, usando scripts bash para GNU/Linux.
 
-.. code-block:: bash
+Opciones de IA disponibles en Venezuela
+OpenRouter.ai (accesible y con modelos gratuitos)
 
-   # Instalar dependencias básicas
-   sudo apt-get update
-   sudo apt-get install -y python3-pip curl jq git
-   pip3 install transformers torch huggingface-hub requests
+Hugging Face (algunos modelos son accesibles)
 
-1.2. Configuración de Acceso Alternativo
---------------------------------------
+LocalAI (si decides instalar modelos locales)
 
-.. code-block:: bash
+Solución recomendada: Usar OpenRouter.ai
+Paso 1: Configurar API Key en OpenRouter
+Regístrate en https://openrouter.ai/
 
-   # Opción 1: Túnel SSH como proxy
-   ssh -D 1080 -N -f usuario@servidor-externo.com
-   
-   # Opción 2: Configurar proxy en entorno
-   export ALL_PROXY=socks5h://127.0.0.1:1080
-   export HTTPS_PROXY=socks5h://127.0.0.1:1080
+Ve a "API Keys" y crea una nueva clave
 
-2. Implementación del Script
-============================
+Anota tu API Key
 
-2.1. Guardar el Script de Integración
-------------------------------------
+Paso 2: Crear script bash para consultar la IA
+===============================================
+Crea el archivo /usr/lib/zabbix/alertscripts/ai_advisor.sh:
 
-Crear ``/usr/lib/zabbix/mistral_zabbix_integration.sh`` con:
+bash
+Copy
+#!/bin/bash
 
-.. code-block:: bash
-   :linenos:
+# Configuración
+OPENROUTER_API_KEY="tu_api_key_aqui"
+MODEL="openai/gpt-3.5-turbo"  # Modelo accesible en Venezuela
+ZABBIX_TRIGGER_NAME="$1"
+ZABBIX_HOSTNAME="$2"
+ZABBIX_SEVERITY="$3"
+ZABBIX_DESCRIPTION="$4"
 
-   #!/bin/bash
-   # Configuración
-   HUGGINGFACE_API_KEY="TU_API_KEY"
-   MODEL="mistralai/Mistral-7B-Instruct-v0.2"
-   
-   # [Resto de tu script original...]
-   
-   # Modificación para proxy
-   RESPONSE=$(curl -s -x socks5h://127.0.0.1:1080 -X POST \
-     "https://api-inference.huggingface.co/models/${MODEL}" \
-     -H "Authorization: Bearer ${HUGGINGFACE_API_KEY}" \
-     -H "Content-Type: application/json" \
-     -d '{"inputs": '"${CLEAN_PROMPT}"'}')
+# Preparar el prompt para la IA
+PROMPT="Eres un experto en sistemas Linux y monitorización con Zabbix. Por favor analiza este problema y provee una solución concisa paso a paso en español.
 
-2.2. Permisos y Propiedad
--------------------------
+Trigger: ${ZABBIX_TRIGGER_NAME}
+Host: ${ZABBIX_HOSTNAME}
+Severity: ${ZABBIX_SEVERITY}
+Descripción: ${ZABBIX_DESCRIPTION}
 
-.. code-block:: bash
+Proporciona:
+1. Posible causa raíz
+2. Pasos para diagnosticar
+3. Solución recomendada
+4. Comandos Linux específicos para resolver el problema"
 
-   chmod +x /usr/lib/zabbix/mistral_zabbix_integration.sh
-   chown zabbix:zabbix /usr/lib/zabbix/mistral_zabbix_integration.sh
+# Consultar a la API de OpenRouter
+RESPONSE=$(curl -s -X POST "https://openrouter.ai/api/v1/chat/completions" \
+  -H "Authorization: Bearer ${OPENROUTER_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "'"${MODEL}"'",
+    "messages": [
+      {"role": "user", "content": "'"${PROMPT}"'"}
+    ]
+  }')
 
-3. Configuración en Zabbix
-=========================
+# Extraer y formatear la respuesta
+SOLUTION=$(echo "$RESPONSE" | jq -r '.choices[0].message.content' | sed 's/"/\\"/g')
 
-3.1. Script Externo
-------------------
+# Enviar la respuesta a Zabbix (puede ser por mail, webhook, etc)
+echo "$SOLUTION"
 
-+---------------------+---------------------------------------------------+
-| Campo               | Valor                                             |
-+=====================+===================================================+
-| Name                | Mistral-7B Trigger Analysis                      |
-+---------------------+---------------------------------------------------+
-| Type                | Script                                            |
-+---------------------+---------------------------------------------------+
-| Execute on          | Zabbix server                                     |
-+---------------------+---------------------------------------------------+
-| Command            | ``/usr/lib/zabbix/mistral_zabbix_integration.sh`` |
-|                     | ``"{TRIGGER.NAME}" "{HOST.NAME}"``                |
-|                     | ``"{TRIGGER.SEVERITY}" "{TRIGGER.DESCRIPTION}"``  |
-+---------------------+---------------------------------------------------+
+# Opcional: Guardar en log para auditoría
+echo "$(date) - ${ZABBIX_HOSTNAME} - ${ZABBIX_TRIGGER_NAME}: ${SOLUTION}" >> /var/log/zabbix/ai_advisor.log
 
-3.2. Item para Recepción
------------------------
+exit 0
+Paso 3: Dar permisos al script
+bash
+Copy
+chmod +x /usr/lib/zabbix/alertscripts/ai_advisor.sh
+chown zabbix:zabbix /usr/lib/zabbix/alertscripts/ai_advisor.sh
+mkdir -p /var/log/zabbix
+touch /var/log/zabbix/ai_advisor.log
+chown zabbix:zabbix /var/log/zabbix/ai_advisor.log
+Paso 4: Instalar dependencias
+bash
+Copy
+apt-get install jq curl  # Para Debian/Ubuntu
+# o
+yum install jq curl      # Para RHEL/CentOS
+Paso 5: Configurar acción en Zabbix
+Ve a "Administration" → "Media Types"
 
-+---------------------+------------------------------+
-| Parámetro           | Valor                        |
-+=====================+==============================+
-| Name                | Mistral-7B Analysis Results  |
-+---------------------+------------------------------+
-| Type                | Zabbix trapper               |
-+---------------------+------------------------------+
-| Key                 | ``mistral.analysis``         |
-+---------------------+------------------------------+
-| Type of information | Text                         |
-+---------------------+------------------------------+
+Crea un nuevo tipo de medio:
 
-4. Formateo RST de Respuestas
-=============================
+Name: "AI Advisor"
 
-4.1. Script de Conversión
-------------------------
+Type: "Script"
 
-Crear ``/usr/lib/zabbix/format_rst_response.sh``:
+Script name: ai_advisor.sh
 
-.. code-block:: bash
-   :linenos:
+Ve a "Configuration" → "Actions"
 
-   #!/bin/bash
-   INPUT="$1"
-   HOST="$2"
-   
-   # Encabezado RST
-   echo ".. _mistral_analysis:"
-   echo ""
-   echo "=============================="
-   echo "Análisis de Incidente - Mistral-7B"
-   echo "=============================="
-   echo ""
-   
-   # Procesamiento de secciones
-   echo "$INPUT" | awk '
-   /1\. Posible causa raíz/ {
-     print "**Causa Raíz**"
-     print "------------"
-     print ""
-     getline
-     while ($0 !~ /2\. Pasos para diagnosticar/) {
-       print "- " $0
-       getline
-     }
-     print ""
-   }
-   # [Resto del formateador...]
-   '
+Crea una nueva acción:
 
-4.2. Integración con Zabbix
---------------------------
+Name: "Consultar IA para solución"
 
-Modificar el script original para incluir al final:
+Conditions: Selecciona los triggers relevantes
 
-.. code-block:: bash
+Operations:
 
-   # Formatear y enviar a Zabbix
-   RST_SOLUTION=$(/usr/lib/zabbix/format_rst_response.sh "$SOLUTION" "$ZABBIX_HOSTNAME")
-   echo "$RST_SOLUTION" | zabbix_sender -z 127.0.0.1 -s "$ZABBIX_HOSTNAME" -k mistral.analysis -o -
+Add: "Send message"
 
-5. Solución Local (Alternativa)
-==============================
+To: "AI Advisor"
 
-5.1. Descargar Modelo
----------------------
+Message: Usa estos parámetros:
 
-.. code-block:: bash
+Copy
+{TRIGGER.NAME}
+{HOST.NAME}
+{TRIGGER.SEVERITY}
+{TRIGGER.DESCRIPTION}
+Paso 6: Configurar notificaciones (Opcional)
+Para recibir las soluciones por email o Telegram:
 
-   python3 -c "
-   from transformers import AutoModelForCausalLM, AutoTokenizer
-   tokenizer = AutoTokenizer.from_pretrained('mistralai/Mistral-7B-Instruct-v0.2',
-              use_auth_token='$HUGGINGFACE_API_KEY')
-   model = AutoModelForCausalLM.from_pretrained('mistralai/Mistral-7B-Instruct-v0.2',
-            use_auth_token='$HUGGINGFACE_API_KEY')
-   "
+Crea un nuevo script /usr/lib/zabbix/alertscripts/send_solution.sh:
 
-5.2. Script de Inferencia Local
-------------------------------
+bash
+Copy
+#!/bin/bash
 
-Crear ``/usr/lib/zabbix/local_mistral.py``:
+EMAIL="$1"
+SUBJECT="Solución para problema en Zabbix: $2"
+MESSAGE="$3"
 
-.. code-block:: python
-   :linenos:
+# Para email (requiere mailx configurado)
+echo "$MESSAGE" | mailx -s "$SUBJECT" "$EMAIL"
 
-   #!/usr/bin/env python3
-   from transformers import AutoModelForCausalLM, AutoTokenizer
-   import sys
-   import json
-   
-   model = AutoModelForCausalLM.from_pretrained("/opt/mistral-7b")
-   tokenizer = AutoTokenizer.from_pretrained("/opt/mistral-7b")
-   
-   inputs = tokenizer(sys.argv[1], return_tensors="pt")
-   outputs = model.generate(**inputs, max_new_tokens=200)
-   print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+# O para Telegram (opcional)
+# TELEGRAM_TOKEN="tu_token"
+# TELEGRAM_CHAT_ID="tu_chat_id"
+# curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+#   -d chat_id="${TELEGRAM_CHAT_ID}" \
+#   -d text="${SUBJECT}%0A%0A${MESSAGE}"
+Modifica el script ai_advisor.sh para llamar a este script al final:
 
-6. Visualización en Zabbix
-=========================
+bash
+Copy
+# Añade esto al final del script ai_advisor.sh
+/usr/lib/zabbix/alertscripts/send_solution.sh "tu_email@dominio.com" "${ZABBIX_TRIGGER_NAME}" "${SOLUTION}"
+Alternativa: Usar modelos locales con LocalAI
+Si prefieres no depender de APIs externas:
 
-6.1. Configurar Frontend
------------------------
+Instala LocalAI en un servidor local:
 
-Editar ``/etc/zabbix/web/zabbix.conf.php``:
+bash
+Copy
+git clone https://github.com/go-skynet/LocalAI
+cd LocalAI
+docker compose up -d
+Descarga un modelo compatible (ej. GPT4All):
 
-.. code-block:: php
+bash
+Copy
+wget https://gpt4all.io/models/gguf/gpt4all-falcon-q4_0.gguf -O models/gpt4all-falcon.gguf
+Modifica el script ai_advisor.sh para apuntar a tu LocalAI:
 
-   $ZBX_SERVER_NAME = 'Zabbix con IA';
-   $IMAGE_FORMAT = IMAGE_FORMAT_RST;
+bash
+Copy
+# Cambia la línea de curl por:
+RESPONSE=$(curl -s -X POST "http://localhost:8080/v1/chat/completions" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt4all-falcon",
+    "messages": [
+      {"role": "user", "content": "'"${PROMPT}"'"}
+    ]
+  }')
+Consideraciones importantes
+Privacidad: No envíes datos sensibles a APIs externas
 
-6.2. Widget Personalizado
-------------------------
+Costos: OpenRouter tiene límites gratuitos, monitorea su uso
 
-+---------------------+-----------------------------------------+
-| Parámetro           | Valor                                   |
-+=====================+=========================================+
-| Type                | Plain text                              |
-+---------------------+-----------------------------------------+
-| Items               | mistral.analysis                        |
-+---------------------+-----------------------------------------+
-| Show text as        | HTML                                    |
-+---------------------+-----------------------------------------+
-| RST rendering       | Enabled                                 |
-+---------------------+-----------------------------------------+
+Validación: Siempre verifica las soluciones sugeridas antes de aplicarlas
 
-7. Ejemplo de Salida
-====================
+Logging: Mantén logs de todas las interacciones para auditoría
 
-.. code-block:: rst
+Este setup te permitirá recibir soluciones automatizadas para los problemas detectados por Zabbix, usando IA accesible desde Venezuela.
 
-   .. _mistral_analysis:
-
-   ==============================
-   Análisis de Incidente - Mistral-7B
-   ==============================
-
-   **Causa Raíz**
-   ------------
-   - Alta carga de CPU en servidor DB01
-   - Consultas SQL no optimizadas
-
-   **Diagnóstico**
-   -------------
-   1. Verificar carga con ``top``
-   2. Analizar consultas MySQL lentas
-   3. Revisar logs de /var/log/mysql
-
-   **Solución**
-   ----------
-   → Optimizar consultas identificadas
-   → Ajustar buffers de MySQL
-   → Programar mantenimiento
-
-   **Comandos**
-   ----------
-   .. code-block:: bash
-
-      mysqldumpslow -s t /var/log/mysql/mysql-slow.log
-      SET GLOBAL innodb_buffer_pool_size=2G;
-      ANALYZE TABLE problematic_table;
-
-   .. footer:: Generado el 15/11/2023 14:30 (UTC-4)
-
-8. Monitoreo y Mantenimiento
-===========================
-
-.. list-table:: Items de Monitoreo Recomendados
-   :widths: 30 50 20
-   :header-rows: 1
-
-   * - Nombre
-     - Descripción
-     - Frecuencia
-   * - ``mistral.api.status``
-     - Estado de conexión a API
-     - 5m
-   * - ``mistral.response.time``
-     - Tiempo de respuesta
-     - Trigger
-   * - ``mistral.log.size``
-     - Tamaño de logs
-     - 1h
-
-**Nota**: Para mantener la privacidad, considera:
-- Rotar tokens API periódicamente
-- Limitar acceso a logs
-- Cifrar comunicaciones Zabbix-AI
