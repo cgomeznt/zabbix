@@ -112,7 +112,7 @@ En la interfaz web de Zabbiz ir a "Alerts" → "Scripts".
 
    Crear un nuevo Scripts llamado **AI Advisor-Script** con los siguientes parametros. 
 
-   Scope: Manual host action
+   Scope: Manual event action
    
    Type: Script
    
