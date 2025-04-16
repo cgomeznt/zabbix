@@ -262,7 +262,7 @@ En la interfaz web de Zabbiz ir a "Alerts" → "Scripts".
    
    Type: **Script**
    
-   Execute on:** Zabbix proxy or server**
+   Execute on: **Zabbix proxy or server**
    
    Commands: **/usr/lib/zabbix/alertscripts/ai_advisor.sh "{TRIGGER.NAME}" "{HOST.NAME}" "{TRIGGER.SEVERITY}" "{TRIGGER.DESCRIPTION}"**
    
