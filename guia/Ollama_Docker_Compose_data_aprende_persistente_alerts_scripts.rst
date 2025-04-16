@@ -301,7 +301,7 @@ Aparece en **Problems** una alarma como esta:
    :align: center
 
 
-Hacemos clic sobre el nombre del servidor y luego clic en el pop-up en sobre **AI Advisor-Script**
+Hacemos clic sobre el **Evento** del servidor y luego clic en el pop-up en sobre **AI Advisor-Script**
 
 .. figure:: ../images/IA/02.png
    :width: 80%
