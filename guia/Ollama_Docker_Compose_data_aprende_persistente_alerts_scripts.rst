@@ -114,6 +114,8 @@ Paso 2: Crear archivo docker-compose.yml
 
 Crea el archivo en ~ollama-docker/docker-compose.yml con:
 
+.. code-block:: bash
+
   version: '3.8'
   
   services:
