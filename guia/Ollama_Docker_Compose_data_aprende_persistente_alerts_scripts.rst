@@ -116,35 +116,35 @@ Crea el archivo en ~ollama-docker/docker-compose.yml con:
 
 .. code-block:: bash
 
-  version: '3.8'
-  
-  services:
-    ollama:
-      image: ollama/ollama
-      ports:
-        - "11434:11434"
-      volumes:
-        - ./models:/root/.ollama
-        - ./uploads:/uploads
-        - ollama_data:/root/.ollama
-      restart: unless-stopped
-  
-    assistant:
-      build: .
-      ports:
-        - "8000:8000"
-        - "80:80"
-      volumes:
-        - ./uploads:/app/uploads
-        - ./db:/app/db
-      depends_on:
-        - ollama
-      environment:
-        - OLLAMA_HOST=http://ollama:11434
-      restart: unless-stopped
-  
-  volumes:
-    ollama_data:
+     version: '3.8'
+     
+     services:
+       ollama:
+         image: ollama/ollama
+         ports:
+           - "11434:11434"
+         volumes:
+           - ./models:/root/.ollama
+           - ./uploads:/uploads
+           - ollama_data:/root/.ollama
+         restart: unless-stopped
+     
+       assistant:
+         build: .
+         ports:
+           - "8000:8000"
+           - "80:80"
+         volumes:
+           - ./uploads:/app/uploads
+           - ./db:/app/db
+         depends_on:
+           - ollama
+         environment:
+           - OLLAMA_HOST=http://ollama:11434
+         restart: unless-stopped
+     
+     volumes:
+       ollama_data:
 
 
 Paso 3: Crear script bash para consultar la IA
