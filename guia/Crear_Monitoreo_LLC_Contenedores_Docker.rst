@@ -127,7 +127,7 @@ Se crea un template Docker_Custom
         Key: docker.activo.[{#ITEM}]
         Type of information: numeric (unsigned)
 
-Create Trigger prototype
-Name: [Sop App]: El Contenedor{#ITEM} no está ejecutandose
-Expression: last(/Docker_Custom/docker.status.[{#ITEM}])=1
+        Create Trigger prototype
+        Name: [Sop App]: El Contenedor{#ITEM} no está ejecutandose
+        Expression: last(/Docker_Custom/docker.status.[{#ITEM}])=1
 
